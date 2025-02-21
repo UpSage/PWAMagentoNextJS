@@ -7,7 +7,7 @@ type OpenProps = {
 };
 
 const Open = ({ onClick }: OpenProps) => (
- <button className="p-2 text-white hover:bg-gray-700 transition" onClick={onClick}>
+ <button className="p-1 bg-white text-[#004672] hover:bg-[#004672] hover:text-white transition border" onClick={onClick}>
   <Menu size={24} />
  </button>
 );

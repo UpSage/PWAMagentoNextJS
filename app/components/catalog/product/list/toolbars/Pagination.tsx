@@ -74,7 +74,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
            setPage(p);
            onPageChange(p);
           }}
-          className={`px-3 py-2 ${page === p ? "bg-blue-500 text-white font-bold" : "text-gray-700 hover:bg-gray-200"}`}
+          className={`px-3 py-1 ${page === p ? "bg-[#20232b] hover:bg-[#004672] text-white" : "text-gray-700 hover:bg-gray-200"}`}
          >{p}
          </button>
         ) : (

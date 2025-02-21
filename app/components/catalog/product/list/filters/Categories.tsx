@@ -26,9 +26,9 @@ const Categories = ({
  }
  
  return (
-  <div className="mb-4">
-   <h3 className="text-md font-semibold mb-2">Filter by Category</h3>
-   <div className="flex flex-col gap-2 max-h-48 overflow-y-auto"> 
+  <div className="mb-4 text-[#20232b]">
+   <h3 className="text-md font-semibold mb-2">Category</h3>
+   <div className="flex flex-col gap-2 max-h-48 overflow-y-auto text-sm"> 
     {
      currentCategory.children.map((category) => (
       <label key={category.id} className="flex items-center gap-2">

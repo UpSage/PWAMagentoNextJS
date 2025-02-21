@@ -71,24 +71,24 @@ const Sort = ({ onSortChange, currentSort }: SortProps) => {
    <div className="relative mr-2">
     
     <button
-     className="flex items-center justify-between w-36 px-4 py-2 border border-gray-300 rounded-md bg-white text-sm hover:bg-gray-100 transition"
+     className="flex items-center justify-between w-36 px-4 py-2 border border-gray-300 bg-white text-sm hover:bg-gray-100 transition"
      onClick={() => setIsOpen(!isOpen)}
      aria-haspopup="listbox"
      aria-expanded={isOpen}
      type="button"
     >
-     <span>{currentFieldLabel}</span>
-     <ChevronDown className={`h-4 w-4 ml-2 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+     <span className="text-[#20232b]">{currentFieldLabel}</span>
+     <ChevronDown className={`h-4 w-4 ml-2 transition-transform text-[#20232b] ${isOpen ? "rotate-180" : ""}`} />
     </button>
     
     {
      isOpen && (
-      <ul className="absolute z-10 w-36 mt-1 bg-white border border-gray-300 rounded-md shadow-lg py-1 max-h-60 overflow-auto" role="listbox">
+      <ul className="absolute z-10 w-36 mt-1 bg-white border border-gray-300 shadow-lg py-1 max-h-60 overflow-auto" role="listbox">
        {
         sortFields.map((option) => (
          <li
           key={option.field}
-          className={`px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 transition ${ currentSort && currentSort.field === option.field ? "bg-gray-50 font-medium" : ""}`}
+          className={`px-4 py-2 text-sm text-[#20232b] cursor-pointer hover:bg-gray-100 transition ${ currentSort && currentSort.field === option.field ? "bg-gray-50 font-medium" : ""}`}
           onClick={() => handleSortChange(option.field)}
           role="option"
           aria-selected={currentSort && currentSort.field === option.field}
@@ -105,7 +105,7 @@ const Sort = ({ onSortChange, currentSort }: SortProps) => {
     currentSort && (
      <button
       onClick={toggleDirection}
-      className="p-2 border border-gray-300 rounded-md bg-white hover:bg-gray-100 transition"
+      className="p-2 bg-white transition text-[#20232b] hover:text-[#004672]"
       aria-label={`Sort ${currentSort.direction === "ASC" ? "ascending" : "descending"}`}
       title={`Currently sorted ${currentSort.direction === "ASC" ? "ascending" : "descending"}`}
      >

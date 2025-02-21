@@ -25,14 +25,14 @@ const Filters = ({ currentCategory, onApplyFilters }: FiltersProps) => {
 
  return (
   <>
-   <button onClick={() => setIsFilterOpen(true)} className="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700">Filter</button>
+   <button onClick={() => setIsFilterOpen(true)} className="text-white px-4 py-2 bg-[#20232b] hover:bg-[#004672]">Filter</button>
    
    {
     isFilterOpen && (
      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 w-96 max-h-[80vh] overflow-y-auto shadow-lg">
+      <div className="bg-white p-4 w-96 max-h-[80vh] overflow-y-auto shadow-lg">
         
-       <h2 className="text-xl font-bold mb-4">Filters</h2>
+       <h2 className="text-xl text-[#004672] font-bold mb-4">Filters</h2>
        
        <Categories
         currentCategory={currentCategory}
@@ -41,8 +41,8 @@ const Filters = ({ currentCategory, onApplyFilters }: FiltersProps) => {
        />
 
        <div className="flex justify-end gap-2 mt-4">
-        <button onClick={() => setIsFilterOpen(false)} className="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">Cancel</button>
-        <button onClick={handleApplyFilters} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Apply</button>
+        <button onClick={() => setIsFilterOpen(false)} className="bg-gray-400 text-white px-4 py-2 hover:bg-gray-500">Cancel</button>
+        <button onClick={handleApplyFilters} className="bg-[#004672] text-white px-4 py-2 hover:bg-[#20232b]">Apply</button>
        </div>
        
       </div>

@@ -136,33 +136,42 @@ const ProductListTemplate = ({
  }
  
  return (
-  <div className="space-y-6">
-    
-   {
-    category && <Title category={category} />
-   }
+  <>
   
-   <div className="flex justify-between items-center pb-4 border-b">
-    <Filters currentCategory={category} onApplyFilters={handleApplyFilters} />
-    <TotalResult productsLength={products.length} totalPages={totalPages} currentPage={currentPage} />
-    <Sort onSortChange={handleSortChange} currentSort={currentSort} />
+   {
+    category && 
+     <div className="space-y-6 p-4 min-h-[100px] bg-[#f2f2f2] flex items-center justify-center">
+      <div className="max-w-7xl w-full mx-auto">
+       <Title category={category} />
+      </div>
+     </div>
+   }
+   
+   <div className="space-y-6 p-4">
+  
+    <div className="max-w-7xl w-full mx-auto flex justify-between items-center pb-4 border-b">
+     <Filters currentCategory={category} onApplyFilters={handleApplyFilters} />
+     <TotalItems totalCount={totalCount} isLoading={isLoading} />
+     <Sort onSortChange={handleSortChange} currentSort={currentSort} />
+    </div>
+  
+    {
+     isLoading ? (
+      <Loader />
+     ) : products.length === 0 ? (
+      <NoProducts/>
+     ) : (
+      <div className="max-w-7xl w-full mx-auto pb-6">
+       <TotalResult productsLength={products.length} totalPages={totalPages} currentPage={currentPage} />
+       <ProductList products={products} />
+       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+      </div>
+     )
+    }
+  
    </div>
-  
-   {
-    isLoading ? (
-     <Loader />
-    ) : products.length === 0 ? (
-     <NoProducts/>
-    ) : (
-     <>
-      <TotalItems totalCount={totalCount} isLoading={isLoading} />
-      <ProductList products={products} />
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-     </>
-    )
-   }
-  
-  </div>
+
+  </>
  );
 
 };

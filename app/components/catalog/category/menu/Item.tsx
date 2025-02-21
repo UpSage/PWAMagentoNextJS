@@ -16,7 +16,7 @@ const Item = ({ category, basePath }: ItemProps) => {
  const categoryPath = `${basePath}/${category.url_key}`;
 
  return (
-  <li className="relative pb-2 mb-2 last:border-none border-b border-gray-500">
+  <li className="relative pb-2 mb-2">
    <div className="flex items-center gap-2">
     {hasChildren && (
      <button onClick={() => setIsExpanded(!isExpanded)} className="text-white">

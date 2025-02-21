@@ -11,7 +11,7 @@ interface ImageThumbnailProps {
 const fallbackImage = process.env.NEXT_PUBLIC_MEDIA_URL + "catalog/product/placeholder/default/Image-Coming-Soon_1.jpg";
 
 const processImageUrl = (url: string) => {
- let cleanedUrl = url.replace(/\/cache\/[^/]+\//, "/");
+ const cleanedUrl = url.replace(/\/cache\/[^/]+\//, "/");
  try {
   const urlObj = new URL(cleanedUrl);
   return `${urlObj.origin}/fit-in/500x500/filters:format(webp)${urlObj.pathname}`;
@@ -33,7 +33,7 @@ const ImageThumbnail = ({ src, alt }: ImageThumbnailProps) => {
  }, [src]);
  
  return (
-  <div className="mt-3">
+  <figure className="mb-4">
    {
     imageSrc && (
      <Image
@@ -50,7 +50,7 @@ const ImageThumbnail = ({ src, alt }: ImageThumbnailProps) => {
      />
     )
    }
-  </div>
+  </figure>
  );
 
 };

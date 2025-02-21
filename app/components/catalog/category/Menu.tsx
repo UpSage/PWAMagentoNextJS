@@ -10,7 +10,7 @@ interface ListProps {
 
 const Menu = ({ categories, basePath }: ListProps) => {
  return (
-  <ul className="space-y-2">
+  <ul className="space-y-2 text-[15px]">
    {
     categories.map((category) => (
      <Item key={category.id} category={category} basePath={basePath} />

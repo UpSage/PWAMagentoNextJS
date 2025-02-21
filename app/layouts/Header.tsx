@@ -4,10 +4,12 @@ import Logo from "./header/Logo";
 import Open from "./navigation/Open";
 
 const Header = ({ onOpen }: { onOpen: () => void }) => (
- <header className="flex items-center p-4 bg-[#004672] text-white">
-  <Open onClick={onOpen} />
-  <div className="ml-4">
-   <Logo />
+ <header className="p-4 bg-white border-b">
+  <div className="max-w-7xl w-full mx-auto flex items-center justify-between">
+   <Open onClick={onOpen} />
+   <div className="mx-auto">
+    <Logo />
+   </div>
   </div>
  </header>
 );

@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 
-const logoUrl = process.env.NEXT_PUBLIC_MEDIA_URL + "logo/stores/1/logo_white.png";
+const logoUrl = process.env.NEXT_PUBLIC_MEDIA_URL + "wysiwyg/logo_mini.png";
 
 const Logo = () => (
- <Image src={logoUrl} alt="Logo" width={225} height={75} />
+ <Image src={logoUrl} alt="Logo" width={36} height={36} />
 );
 
 export default Logo;

@@ -17,7 +17,7 @@ const Layout = ({ navigation, children }: LayoutProps) => {
   <div className="relative flex flex-col">
    <Header onOpen={() => setIsOpen(true)} />
    <Navigation navigation={navigation} isOpen={isOpen} onClose={() => setIsOpen(false)} />
-   <main className="flex-grow p-4 bg-white">{children}</main>
+   <main className="flex-grow bg-white">{children}</main>
   </div>
  );
 
