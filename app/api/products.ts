@@ -33,11 +33,14 @@ export const GET_PRODUCTS = gql`
   $categoryIds: [String!],
   $currentPage: Int,
   $pageSize: Int,
-  $sort: ProductAttributeSortInput
+  $sort: ProductAttributeSortInput,
+  $minPrice: String,
+  $maxPrice: String
  ) {
   products(
    filter: { 
-    category_id: { in: $categoryIds }
+    category_id: { in: $categoryIds },
+    price: { from: $minPrice, to: $maxPrice }
    },
    currentPage: $currentPage,
    pageSize: $pageSize,
@@ -47,6 +50,14 @@ export const GET_PRODUCTS = gql`
     id
     name
     sku
+    price {
+      regularPrice {
+        amount {
+          value
+          currency
+        }
+      }
+    }
     thumbnail { url label }
     small_image { url label }
     image { url label }
@@ -64,10 +75,14 @@ export const getProducts = async (
  categoryIds: string[],
  currentPage: number,
  pageSize: number,
- sort?: { field: string; direction: string }
+ sort?: { field: string; direction: string },
+ priceRange?: { min: number, max: number }
 ): Promise<ProductsResponse["products"]> => {
     
  let sortInput = sort ? { [sort.field]: sort.direction } : undefined;
+
+ const minPriceString = priceRange?.min !== undefined ? priceRange.min.toString() : "";
+ const maxPriceString = priceRange?.max !== undefined ? priceRange.max.toString() : "";
  
  const { data } = await client.query({
   query: GET_PRODUCTS,
@@ -75,12 +90,12 @@ export const getProducts = async (
    categoryIds, 
    currentPage,
    pageSize,
-   sort: sortInput
+   sort: sortInput,
+   minPrice: minPriceString,
+   maxPrice: maxPriceString
   },
   fetchPolicy: "network-only",
  });
  
  return data.products;
 };
-  
-  

@@ -12,7 +12,6 @@ import TotalItems from "../product/list/toolbars/TotalItems";
 import TotalResult from "../product/list/toolbars/TotalResult";
 import Sort, { SortOption } from "../product/list/toolbars/Sort";
 import Pagination from "../product/list/toolbars/Pagination";
-
 interface ProductListTemplateProps {
  categoryId?: number | null;
  category?: Category;
@@ -23,7 +22,8 @@ interface ProductListTemplateProps {
   categoryIds: string[],
   page: number,
   pageSize: number,
-  sort?: { field: string; direction: string }
+  sort?: { field: string; direction: string },
+  priceRange?: { min: number, max: number }
  ) => Promise<any>;
 }
 
@@ -43,7 +43,9 @@ const ProductListTemplate = ({
  const [totalCount, setTotalCount] = useState(0);
  const [totalPages, setTotalPages] = useState(1);
  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
- 
+ const [priceRange, setPriceRange] = useState<{ min: number, max: number } | undefined>(undefined);
+ const [maxPrice, setMaxPrice] = useState<number>(5000);
+
  const [currentSort, setCurrentSort] = useState<SortOption>({
   label: "Position (Low-High)",
   field: "position",
@@ -62,8 +64,12 @@ const ProductListTemplate = ({
   }
  };
  
- const handleApplyFilters = (filters: { categoryIds: number[] }) => {
+ const handleApplyFilters = (filters: { 
+   categoryIds: number[], 
+   priceRange?: { min: number, max: number } 
+ }) => {
   setSelectedCategoryIds(filters.categoryIds);
+  setPriceRange(filters.priceRange);
   onPageChange?.(1);
  };
 
@@ -88,15 +94,17 @@ const ProductListTemplate = ({
       {
         field: currentSort.field,
         direction: currentSort.direction,
-      }
+      },
+      priceRange
     );
 
     if (currentRequestId === latestRequestId.current) {
       setProducts(data.items);
       setTotalPages(data.page_info.total_pages);
       setTotalCount(data.total_count);
-      if (currentPage > data.page_info.total_pages && data.page_info.total_pages > 0) {
-        onPageChange?.(1);
+      
+      if (data.max_price !== undefined) {
+        setMaxPrice(data.max_price);
       }
     }
   } catch (error) {
@@ -119,7 +127,8 @@ const ProductListTemplate = ({
   onPageChange,
   fetchProductsFunc,
   currentSort,
-  selectedCategoryIds
+  selectedCategoryIds,
+  priceRange
 ]);
 
  
@@ -129,6 +138,7 @@ const ProductListTemplate = ({
  
  useEffect(() => {
   setSelectedCategoryIds([]);
+  setPriceRange(undefined);
  }, [categoryId]);
  
  if(error) {
@@ -150,7 +160,10 @@ const ProductListTemplate = ({
    <div className="space-y-6 p-4">
   
     <div className="max-w-7xl w-full mx-auto flex justify-between items-center pb-4 border-b">
-     <Filters currentCategory={category} onApplyFilters={handleApplyFilters} />
+    <Filters currentCategory={category} maxPrice={maxPrice} onApplyFilters={handleApplyFilters} />
+
+
+
      <TotalItems totalCount={totalCount} isLoading={isLoading} />
      <Sort onSortChange={handleSortChange} currentSort={currentSort} />
     </div>
